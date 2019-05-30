@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+        xmlns="http://www.hybris.de/xsd/processdefinition" name="testSynchronizing-process" start="insertProductAction"
+        processClass="de.hybris.platform.processengine.model.BusinessProcessModel"
+        onError="error">
+    <action id="insertProductAction" bean="insertProductAction">
+        <transition name="OK" to="productReviewAction"/>
+        <transition name="NOK" to="productReviewAction"/>
+    </action>
+    <action id="productReviewAction" bean="productReviewAction">
+        <transition name="OK" to="success"/>
+        <transition name="NOK" to="productSynchronizingAction"/>
+    </action>
+    <action id="productSynchronizingAction" bean="productSynchronizingAction">
+        <transition name="OK" to="success"/>
+        <transition name="NOK" to="success"/>
+    </action>
+
+    <end id="success" state="SUCCEEDED"> Successful Synchronization</end>
+    <end id="error" state="ERROR">ERROR was Occurred!</end>
+
+</process>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
+    <enumtypes>
+        <enumtype code="PublishingHouse" generate="true" autocreate="true" dynamic="true">
+            <value code="HACHETTE_BOOK_GROUP"/>
+            <value code="HARPER_COLLINS"/>
+            <value code="SIMON_AND_SCHUSTER"/>
+        </enumtype>
+
+        <enumtype code="Genre" autocreate="true" generate="true">
+            <value code="HORROR"/>
+            <value code="MYSTERY"/>
+            <value code="FANTASY"/>
+            <value code="ROMANCE"/>
+            <value code="MATH"/>
+        </enumtype>
+
+        <enumtype code="ProductStatus">
+            <value code="UP_TO_DATE"/>
+            <value code="OUTDATED"/>
+        </enumtype>
+    </enumtypes>
+
+    <relations>
+        <relation code="Author2BooksRelation" localized="false" generate="true" autocreate="true">
+            <sourceElement type="Author" qualifier="author" cardinality="one">
+                <modifiers read="true" write="true" search="true" optional="false"/>
+            </sourceElement>
+            <targetElement type="Book" qualifier="books" cardinality="many">
+                <modifiers read="true" write="true" search="true" optional="true"/>
+            </targetElement>
+        </relation>
+    </relations>
+
+    <itemtypes>
+        <itemtype code="Author" generate="true" autocreate="true" jaloclass="org.oorextension.jalo.Author">
+            <deployment table="Author" typecode="10300"/>
+            <attributes>
+                <attribute qualifier="firstName" type="java.lang.String" autocreate="true" generate="true">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lastName" type="java.lang.String" generate="true" autocreate="true">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shortName" type="java.lang.String">
+                    <persistence type="dynamic" attributeHandler="shortNameHandler"/>
+                    <modifiers search="true" read="true" write="false"/>
+                </attribute>
+                <attribute qualifier="genre" type="Genre" generate="true" autocreate="true">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Book" generate="true" autocreate="true" jaloclass="org.oorextension.jalo.Book">
+            <deployment table="Book" typecode="10301"/>
+            <attributes>
+                <attribute qualifier="name" type="java.lang.String" autocreate="true" generate="true">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="genre" type="Genre" autocreate="true" generate="true">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="publishingHouse" type="PublishingHouse" autocreate="true" generate="true">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="basePrice" type="java.math.BigDecimal">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="amount" type="java.lang.Integer" generate="true" autocreate="false">
+                    <persistence type="dynamic" attributeHandler="bookAmountHandler"/>
+                    <modifiers search="true" read="true" write="false"/>
+                </attribute>
+                <attribute qualifier="fullPrice" type="java.math.BigDecimal" generate="true" autocreate="true">
+                    <persistence type="property"/>
+                    <modifiers read="true" write="true" search="true"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MyStatusProduct" autocreate="true" generate="true"
+                  jaloclass="org.oorextension.jalo.StatusProduct">
+            <deployment table="StatusProduct" typecode="10302"/>
+            <attributes>
+                <attribute qualifier="synchronized" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="status" type="ProductStatus">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="BusinessProcessStatusProduct" autocreate="true" generate="true"
+                  jaloclass="org.oorextension.jalo.BusinessProcessStatusProduct" extends="BusinessProcess">
+            <attributes>
+                <attribute qualifier="productStatusPk" type="de.hybris.platform.core.PK">
+                    <persistence type="property"/>
+                </attribute>
+
+            </attributes>
+        </itemtype>
+
+        <itemtype code="SynchronizingCronJob" autocreate="true" generate="true" extends="CronJob"
+                  jaloclass="org.oorextension.jalo.cronjob.SynchronizingCronJob">
+            <attributes>
+                <attribute qualifier="productStatusPk" type="de.hybris.platform.core.PK">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
+</items>

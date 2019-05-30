@@ -1,0 +1,37 @@
+INSERT Author;firstName;lastName;genre(code)
+             ;William;Shakespeare;ROMANCE
+
+INSERT Author;firstName;lastName;genre(code)
+             ;Stephen;King;HORROR
+
+INSERT Author;firstName;lastName;genre(code)
+             ;Barbara;Cartland;ROMANCE
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"Hamlet";ROMANCE;SIMON_AND_SCHUSTER;100;Shakespeare
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"Macbeth ";ROMANCE;SIMON_AND_SCHUSTER;200;Shakespeare
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"Romeo and Juliet";ROMANCE;SIMON_AND_SCHUSTER;150;Shakespeare
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"A Hazard of Hearts ";ROMANCE;SIMON_AND_SCHUSTER;300;Cartland
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"The Wicked Marquis ";ROMANCE;SIMON_AND_SCHUSTER;50;Cartland
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"A Gentleman in Love";ROMANCE;HACHETTE_BOOK_GROUP;20;Cartland
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"Desperation";HORROR;SIMON_AND_SCHUSTER;12;King
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"From a Buick 8";HORROR;HARPER_COLLINS;500;King
+
+INSERT Book;name;genre(code);publishingHouse(code);basePrice;author(lastName)
+           ;"Everything's Eventual";HORROR;HARPER_COLLINS;100;King
+
+
